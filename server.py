@@ -3,37 +3,18 @@ import os
 from datetime import datetime, timedelta
 from werkzeug.utils import secure_filename
 import requests
-import threading
-import discord
-from discord.ext import commands
 
 app = Flask(__name__)
-app.secret_key = "learn_with_iss_platform_secure_key"
+app.secret_key = "learn_with_iss_clean_platform_secure_key"
 
 UPLOAD_FOLDER = 'static/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-USER_FILE = "users.txt"
 POST_FILE = "posts.txt"
 SHOP_FILE = "shop_items.txt"
 INQUIRY_FILE = "inquiries.txt"
 ADMIN_LIST_FILE = "admins.txt"
-
-OWNER_EMAIL = "admin@learnwithiss.com"
-OWNER_USERNAME = "iss_admin"
-OWNER_PASSWORD = "muhib###5869@"
-
-DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_TOKEN"
-
-def send_discord_alert(message_text):
-    if not DISCORD_WEBHOOK_URL:
-        return
-    payload = {"content": message_text}
-    try:
-        requests.post(DISCORD_WEBHOOK_URL, json=payload, timeout=5)
-    except Exception:
-        pass
 
 def load_posts():
     posts = []
@@ -68,7 +49,6 @@ def home():
                 with open(INQUIRY_FILE, "a") as f:
                     f.write(f"{name}|{email}|{message}|{datetime.now().strftime('%Y-%m-%d %H:%M')}\n")
                 msg = "✅ Your transmission has been received securely."
-                send_discord_alert(f"📬 **New Secure Inquiry [Learn with ISS]:** From **{name}** ({email})")
 
     return render_template_string("""
     <!DOCTYPE html>
@@ -183,7 +163,6 @@ def home():
 
         <footer>
             <div class="social-icons">
-                <a href="https://discord.com" target="_blank"><i class="fa-brands fa-discord"></i></a>
                 <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i></a>
                 <a href="https://linkedin.com" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
                 <a href="https://twitter.com" target="_blank"><i class="fa-brands fa-twitter"></i></a>
@@ -198,29 +177,5 @@ def home():
 def client_login():
     return "<body style='background:#050814; color:#f1f5f9; font-family:Inter; text-align:center; padding-top:100px;'><h3>Client Authentication Gateway</h3><p><a href='/' style='color:#0284c7; text-decoration:none;'>&larr; Return to Main Interface</a></p></body>"
 
-# --- DISCORD BOT BACKGROUND THREAD ---
-BOT_TOKEN = os.environ.get("DISCORD_BOT_TOKEN")
-intents = discord.Intents.default()
-intents.message_content = True
-bot = commands.Bot(command_prefix="!", intents=intents)
-
-@bot.event
-async def on_ready():
-    print(f"Discord Bot logged in as {bot.user.name}")
-
-@bot.command(name="report")
-async def bot_report(ctx):
-    await ctx.send("🛡️ Learn with ISS Security Grid: System integrity optimal and operational.")
-
-def run_discord_bot():
-    if BOT_TOKEN:
-        try:
-            bot.run(BOT_TOKEN)
-        except Exception as e:
-            print(f"Bot error: {e}")
-
 if __name__ == "__main__":
-    bot_thread = threading.Thread(target=run_discord_bot)
-    bot_thread.daemon = True
-    bot_thread.start()
     app.run(host="0.0.0.0", port=5000, debug=True)

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ site_name }} — {{ tagline }}</title>
+<meta name="description" content="{{ description }}">
+<meta name="author" content="{{ owner }}">
+<meta name="keywords" content="learn with iss, {{ owner|lower }}, cybersecurity, ethical hacking, infosec, roadmaps, penetration testing, bug bounty, ctf">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#03070d">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ site_name }}">
+<meta property="og:title" content="{{ site_name }} — {{ tagline }}">
+<meta property="og:description" content="{{ description }}">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body id="top">
+
+<header class="bar">
+  <a class="brand" href="#top" title="{{ tagline }}">[{{ site_name|upper }}] <span class="cur">_</span></a>
+  <nav>{% for id, label in nav %}<a href="#{{ id }}">{{ label }}</a>{% endfor %}</nav>
+</header>
+
+<main>
+<section id="welcome" class="hero">
+  <p class="muted">{{ tagline }}</p>
+  <div class="term">
+    <div><span class="p">guest@learnwithiss:~$</span> whoami</div>
+    <div>a hacker. curious, relentless, here to learn.</div>
+    <div><span class="p">guest@learnwithiss:~$</span> cat /etc/motd</div>
+    <div># Welcome to {{ site_name }} — {{ tagline }}.</div>
+    <div># Everyone who builds, breaks, and learns in good faith has a home here.</div>
+    <div><span class="p">guest@learnwithiss:~$</span> ./start --learn<span class="cur">█</span></div>
+  </div>
+  <h1>Welcome, <em>HACKER.</em></h1>
+  <p><strong>{{ site_name }}</strong> — {{ tagline }} is a friendly, resilient home for the curious — a place to explore how systems really work, sharpen offensive and defensive tradecraft, and stay current with live security intel.</p>
+  <p class="cta"><a class="btn" href="#knowledge">Enter Knowledge Base</a> <a class="btn alt" href="#paths">Start Learning →</a></p>
+
+  <h2 class="sub">// the ethos — The hacker mindset</h2>
+  <p>Hacking is curiosity with skill attached. It's the discipline of understanding a system so deeply that you see what its builders missed — then choosing to make it better.</p>
+  <div class="grid g4">
+    {% for icon, t, d in ethos %}<article class="card"><div class="ico">{{ icon }}</div><h3>{{ t }}</h3><p>{{ d }}</p></article>{% endfor %}
+  </div>
+</section>
+
+<section id="knowledge">
+  <h2>// the knowledge base — Domains of hacking</h2>
+  <p>Ten core territories. Each card is a map: what it is, what to study, and the best places to go deeper.</p>
+  <input id="q" class="search" type="search" placeholder="search domains…" aria-label="Search domains" autocomplete="off">
+  <div class="grid g3" id="domains">
+    {% for icon, t, d, pts, links in domains %}
+    <article class="card dom"><div class="ico">{{ icon }}</div><h3>{{ t }}</h3><p>{{ d }}</p>
+      <ul>{% for p in pts %}<li>{{ p }}</li>{% endfor %}</ul>
+      <p class="links">{% for n, u in links %}<a href="{{ u }}" target="_blank" rel="noopener">{{ n }} ↗</a>{% endfor %}</p>
+    </article>{% endfor %}
+  </div>
+</section>
+
+<section id="paths">
+  <h2>// the roadmap — Learning paths</h2>
+  <p>No gatekeeping. If you can read this page, you can start today. Follow the steps in order.</p>
+  <div class="grid g3">
+    {% for t, d, steps in paths %}
+    <article class="card"><div class="num">0{{ loop.index }}</div><h3>{{ t }}</h3><p>{{ d }}</p>
+      <ol>{% for s in steps %}<li>{{ s }}</li>{% endfor %}</ol></article>{% endfor %}
+  </div>
+</section>
+
+<section id="arsenal">
+  <h2>// the arsenal — Tools of the trade</h2>
+  <p>The essential kit, grouped by job. Free and open-source unless noted. Learn one well before collecting them all.</p>
+  <div class="grid g4">
+    {% for group, items in tools.items() %}
+    <article class="card"><h3>{{ group }}</h3><p class="chips">{% for i in items %}<span>{{ i }}</span>{% endfor %}</p></article>{% endfor %}
+  </div>
+</section>
+
+<section id="practice">
+  <h2>// the dojo — Practice grounds</h2>
+  <p>Reading is not skill. These are legal, intentionally-vulnerable playgrounds — hack them all you want.</p>
+  <div class="grid g3">
+    {% for n, d, u in practice %}<a class="card link" href="{{ u }}" target="_blank" rel="noopener"><h3>{{ n }} ↗</h3><p>{{ d }}</p></a>{% endfor %}
+  </div>
+</section>
+
+<section id="glossary">
+  <h2>// the lexicon — Speak the language</h2>
+  <p>The vocabulary you'll hear everywhere. Know these and you can follow any conversation in the field.</p>
+  <div class="grid g4">
+    {% for t, d in glossary %}<article class="card"><h3>{{ t }}</h3><p>{{ d }}</p></article>{% endfor %}
+  </div>
+</section>
+
+<section id="intel">
+  <h2>// live intel — The feeds</h2>
+  <p>Stay current. Curated, high-signal sources — threat intel, advisories, CVEs, cloud, and AI tradecraft.</p>
+  {% for group, items in feeds.items() %}
+  <h3 class="grp">{{ group }}</h3>
+  <div class="grid g4">
+    {% for n, d, u in items %}<a class="card link" href="{{ u }}" target="_blank" rel="noopener"><h4>{{ n }}</h4><p>{{ d }}</p></a>{% endfor %}
+  </div>{% endfor %}
+</section>
+
+<section id="rules">
+  <h2>// rules of the house</h2>
+  <ul class="rules">{% for r in rules %}<li>{{ r }}</li>{% endfor %}</ul>
+  <p class="muted">// {{ site_name }} provides educational cybersecurity information and links to public resources. You are responsible for how you use what you learn. Hack ethically.</p>
+</section>
+</main>
+
+<footer>
+  <p>{{ site_name }} · {{ owner }}</p>
+  <p>curated for ethical hackers, students &amp; defenders · resilient by design · all are welcome</p>
+  <p class="p">&gt; {{ site_name|lower }} // stay curious. stay ethical. keep hacking. <span class="cur">_</span></p>
+</footer>
+
+<script>
+const q = document.getElementById('q');
+q.addEventListener('input', () => {
+  const v = q.value.trim().toLowerCase();
+  document.querySelectorAll('.dom').forEach(c => {
+    c.style.display = c.textContent.toLowerCase().includes(v) ? '' : 'none';
+  });
+});
+</script>
+</body>
+</html>

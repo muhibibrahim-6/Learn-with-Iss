@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body id="top">
+<canvas id="code-bg" aria-hidden="true"></canvas>
 
 <header class="bar">
   <a class="brand" href="#top" title="{{ tagline }}">[{{ site_name|upper }}] <span class="cur">_</span></a>
@@ -108,10 +109,27 @@
   <ul class="rules">{% for r in rules %}<li>{{ r }}</li>{% endfor %}</ul>
   <p class="muted">// {{ site_name }} provides educational cybersecurity information and links to public resources. You are responsible for how you use what you learn. Hack ethically.</p>
 </section>
+
+<section id="legal">
+  <h2>// legal — Copyright &amp; Disclaimer</h2>
+  <div class="legal">
+    <h3>Copyright notice</h3>
+    <p>&copy; {{ year }} {{ owner }} / {{ site_name }}. The original design, layout, source code and written material of this website are the property of {{ owner }}. No part of the original material may be copied, republished or redistributed without prior written permission.</p>
+
+    <h3>Third-party resources</h3>
+    <p>{{ site_name }} is a curated directory. It links to external websites, courses, tools and publications that are owned and operated by third parties. All names, logos, brands and trademarks mentioned (including but not limited to OWASP, PortSwigger, Hack The Box, TryHackMe, MITRE, NIST, CISA, Kali Linux and Burp Suite) belong to their respective owners. We do not host, copy or redistribute their content, and their mention does not imply any affiliation, sponsorship or endorsement.</p>
+
+    <h3>Educational purpose &amp; no warranty</h3>
+    <p>All information is provided for educational, defensive and authorized-testing purposes only, &ldquo;as is&rdquo; and without warranty of any kind. {{ owner }} accepts no liability for any loss, damage or legal consequence arising from the use or misuse of this information. Users are solely responsible for complying with the laws of their jurisdiction.</p>
+
+    <h3>Copyright complaints &amp; takedown</h3>
+    <p>If you are a rights holder and believe that any content on this website infringes your copyright, please email <a href="mailto:{{ contact_email }}">{{ contact_email }}</a> with: (1) a description of the work, (2) the exact URL of the material, (3) your contact details, and (4) a statement that you are authorized to act for the rights holder. We review every valid notice promptly and will remove or correct the material where required.</p>
+  </div>
+</section>
 </main>
 
 <footer>
-  <p>{{ site_name }} · {{ owner }}</p>
+  <p>&copy; {{ year }} {{ owner }} · {{ site_name }} · All rights reserved on original content · <a href="#legal">Copyright &amp; Disclaimer</a></p>
   <p>curated for ethical hackers, students &amp; defenders · resilient by design · all are welcome</p>
   <p class="p">&gt; {{ site_name|lower }} // stay curious. stay ethical. keep hacking. <span class="cur">_</span></p>
 </footer>
@@ -124,6 +142,32 @@ q.addEventListener('input', () => {
     c.style.display = c.textContent.toLowerCase().includes(v) ? '' : 'none';
   });
 });
+</script>
+
+<script>
+(function(){
+  const c = document.getElementById('code-bg'), x = c.getContext('2d');
+  const chars = '01{}[]()<>/\\;:=+-*&|$#%!?_~abcdefxyz'.split('');
+  const size = 16; let cols, drops, W, H;
+  function resize(){
+    W = c.width = innerWidth; H = c.height = innerHeight;
+    cols = Math.ceil(W / size); drops = Array.from({length: cols}, () => Math.random() * H / size);
+  }
+  function draw(){
+    x.fillStyle = 'rgba(3,7,13,0.09)'; x.fillRect(0, 0, W, H);
+    x.font = size + 'px ui-monospace, Menlo, Consolas, monospace';
+    for (let i = 0; i < cols; i++){
+      x.fillStyle = Math.random() > 0.975 ? '#c8ffe8' : '#00c878';
+      x.fillText(chars[Math.floor(Math.random() * chars.length)], i * size, drops[i] * size);
+      if (drops[i] * size > H && Math.random() > 0.975) drops[i] = 0;
+      drops[i] += 0.6;
+    }
+  }
+  resize(); addEventListener('resize', resize);
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches){
+    for (let k = 0; k < 60; k++) draw();
+  } else { setInterval(draw, 55); }
+})();
 </script>
 </body>
 </html>

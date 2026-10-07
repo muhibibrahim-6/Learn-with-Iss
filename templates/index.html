@@ -27,29 +27,26 @@
 <main>
 <section id="welcome" class="hero">
   <p class="muted">{{ tagline }}</p>
-  <div class="term">
-    <div><span class="p">guest@learnwithiss:~$</span> whoami</div>
-    <div>a hacker. curious, relentless, here to learn.</div>
-    <div><span class="p">guest@learnwithiss:~$</span> cat /etc/motd</div>
-    <div># Welcome to {{ site_name }} — {{ tagline }}.</div>
-    <div># Everyone who builds, breaks, and learns in good faith has a home here.</div>
-    <div><span class="p">guest@learnwithiss:~$</span> ./start --learn<span class="cur">█</span></div>
+  <div class="term" id="term" role="application" aria-label="Interactive terminal">
+    <div class="term-bar"><i></i><i></i><i></i><span>guest@learnwithiss: ~</span></div>
+    <div id="term-out" aria-live="polite"></div>
+    <div class="term-line"><span class="p" id="term-ps1"></span><input id="term-in" type="text" spellcheck="false" autocomplete="off" autocapitalize="off" aria-label="Terminal input"></div>
   </div>
-  <h1>Welcome, <em>HACKER.</em></h1>
-  <p><strong>{{ site_name }}</strong> — {{ tagline }} is a friendly, resilient home for the curious — a place to explore how systems really work, sharpen offensive and defensive tradecraft, and stay current with live security intel.</p>
+  <h1>Welcome to <em>{{ site_name }}</em></h1>
+  <p><strong>{{ site_name }}</strong> is a learning hub for people who want to understand how systems work and how they fail. Build practical offensive and defensive skills, follow clear study paths, and keep up with trusted security news.</p>
   <p class="cta"><a class="btn" href="#knowledge">Enter Knowledge Base</a> <a class="btn alt" href="#paths">Start Learning →</a></p>
 
-  <h2 class="sub">// the ethos — The hacker mindset</h2>
-  <p>Hacking is curiosity with skill attached. It's the discipline of understanding a system so deeply that you see what its builders missed — then choosing to make it better.</p>
+  <h2 class="sub">// principles — The security mindset</h2>
+  <p>Security is curiosity backed by skill: understanding a system well enough to spot what its designers overlooked, then using that insight to make it stronger.</p>
   <div class="grid g4">
     {% for icon, t, d in ethos %}<article class="card"><div class="ico">{{ icon }}</div><h3>{{ t }}</h3><p>{{ d }}</p></article>{% endfor %}
   </div>
 </section>
 
 <section id="knowledge">
-  <h2>// the knowledge base — Domains of hacking</h2>
-  <p>Ten core territories. Each card is a map: what it is, what to study, and the best places to go deeper.</p>
-  <input id="q" class="search" type="search" placeholder="search domains…" aria-label="Search domains" autocomplete="off">
+  <h2>// knowledge base — Core security domains</h2>
+  <p>Ten core areas of cybersecurity. Each card summarizes the topic, lists what to study, and links to trusted resources for deeper learning.</p>
+  <input id="q" class="search" type="search" placeholder="Search domains…" aria-label="Search domains" autocomplete="off">
   <div class="grid g3" id="domains">
     {% for icon, t, d, pts, links in domains %}
     <article class="card dom"><div class="ico">{{ icon }}</div><h3>{{ t }}</h3><p>{{ d }}</p>
@@ -60,8 +57,8 @@
 </section>
 
 <section id="paths">
-  <h2>// the roadmap — Learning paths</h2>
-  <p>No gatekeeping. If you can read this page, you can start today. Follow the steps in order.</p>
+  <h2>// roadmap — Learning paths</h2>
+  <p>Anyone can begin today. Work through the stages in order and build your skills step by step.</p>
   <div class="grid g3">
     {% for t, d, steps in paths %}
     <article class="card"><div class="num">0{{ loop.index }}</div><h3>{{ t }}</h3><p>{{ d }}</p>
@@ -70,8 +67,8 @@
 </section>
 
 <section id="arsenal">
-  <h2>// the arsenal — Tools of the trade</h2>
-  <p>The essential kit, grouped by job. Free and open-source unless noted. Learn one well before collecting them all.</p>
+  <h2>// toolkit — Essential tools</h2>
+  <p>Commonly used tools grouped by purpose. Most are free or open source. Master a few thoroughly before collecting many.</p>
   <div class="grid g4">
     {% for group, items in tools.items() %}
     <article class="card"><h3>{{ group }}</h3><p class="chips">{% for i in items %}<span>{{ i }}</span>{% endfor %}</p></article>{% endfor %}
@@ -79,24 +76,24 @@
 </section>
 
 <section id="practice">
-  <h2>// the dojo — Practice grounds</h2>
-  <p>Reading is not skill. These are legal, intentionally-vulnerable playgrounds — hack them all you want.</p>
+  <h2>// practice labs — Safe places to train</h2>
+  <p>Real skill comes from practice. These platforms are legal, intentionally vulnerable environments built for hands-on learning.</p>
   <div class="grid g3">
     {% for n, d, u in practice %}<a class="card link" href="{{ u }}" target="_blank" rel="noopener"><h3>{{ n }} ↗</h3><p>{{ d }}</p></a>{% endfor %}
   </div>
 </section>
 
 <section id="glossary">
-  <h2>// the lexicon — Speak the language</h2>
-  <p>The vocabulary you'll hear everywhere. Know these and you can follow any conversation in the field.</p>
+  <h2>// glossary — Key terms</h2>
+  <p>Common terminology used across the industry. Knowing these terms makes technical discussions easier to follow.</p>
   <div class="grid g4">
     {% for t, d in glossary %}<article class="card"><h3>{{ t }}</h3><p>{{ d }}</p></article>{% endfor %}
   </div>
 </section>
 
 <section id="intel">
-  <h2>// live intel — The feeds</h2>
-  <p>Stay current. Curated, high-signal sources — threat intel, advisories, CVEs, cloud, and AI tradecraft.</p>
+  <h2>// news &amp; intelligence — Trusted sources</h2>
+  <p>Stay informed with a curated list of reliable sources covering threat intelligence, advisories, vulnerabilities, cloud security and AI.</p>
   {% for group, items in feeds.items() %}
   <h3 class="grp">{{ group }}</h3>
   <div class="grid g4">
@@ -105,9 +102,9 @@
 </section>
 
 <section id="rules">
-  <h2>// rules of the house</h2>
+  <h2>// code of conduct</h2>
   <ul class="rules">{% for r in rules %}<li>{{ r }}</li>{% endfor %}</ul>
-  <p class="muted">// {{ site_name }} provides educational cybersecurity information and links to public resources. You are responsible for how you use what you learn. Hack ethically.</p>
+  <p class="muted">// {{ site_name }} offers educational cybersecurity information and links to public resources. You remain responsible for how you apply it. Practice ethically and lawfully.</p>
 </section>
 
 <section id="legal">
@@ -130,8 +127,8 @@
 
 <footer>
   <p>&copy; {{ year }} {{ owner }} · {{ site_name }} · All rights reserved on original content · <a href="#legal">Copyright &amp; Disclaimer</a></p>
-  <p>curated for ethical hackers, students &amp; defenders · resilient by design · all are welcome</p>
-  <p class="p">&gt; {{ site_name|lower }} // stay curious. stay ethical. keep hacking. <span class="cur">_</span></p>
+  <p>Built for students, ethical hackers and defenders</p>
+  <p class="p">&gt; {{ site_name|lower }} // stay curious. stay ethical. keep learning. <span class="cur">_</span></p>
 </footer>
 
 <script>
@@ -167,6 +164,93 @@ q.addEventListener('input', () => {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches){
     for (let k = 0; k < 60; k++) draw();
   } else { setInterval(draw, 55); }
+})();
+</script>
+
+<script>
+(function(){
+  const SITE = {{ site_name|tojson }}, OWNER = {{ owner|tojson }};
+  const PS1 = 'guest@learnwithiss:~$ ';
+  const out = document.getElementById('term-out'), inp = document.getElementById('term-in'), box = document.getElementById('term');
+  document.getElementById('term-ps1').textContent = PS1;
+
+  const FILES = {
+    'about.txt': SITE + ' - a cybersecurity learning hub by ' + OWNER + '.\nStudy core domains, follow roadmaps, practice in legal labs.',
+    'roadmap.txt': '1. Foundations  - Linux, networking, Python, home lab\n2. Core Offense - web security, recon, boxes, write-ups\n3. Specialize   - web | binary | cloud | AI | AD, CTFs, bug bounty',
+    'tools.txt': 'recon: nmap, masscan, amass, subfinder\nweb: Burp Suite, OWASP ZAP, ffuf, sqlmap\nre: Ghidra, radare2, x64dbg, gdb\nnetwork: Wireshark, tcpdump, mitmproxy\nforensics: Volatility, Autopsy, binwalk, CyberChef',
+    'labs.txt': 'PortSwigger Academy, Hack The Box, TryHackMe, picoCTF,\nOverTheWire, VulnHub, pwn.college, Cryptopals, Root-Me, CTFtime',
+    'rules.txt': '1. Test only what you own or are authorized to test.\n2. Know your local computer-crime laws.\n3. Report vulnerabilities responsibly.\n4. Use knowledge to protect, never to harm.',
+  };
+  const SECTIONS = ['welcome','knowledge','paths','arsenal','practice','glossary','intel','rules','legal'];
+  const CMDS = ['help','ls','cat','whoami','pwd','date','echo','clear','history','neofetch','open','domains','paths','tools','labs','rules','uname','id','ping','exit'];
+  let hist = [], hi = 0;
+
+  function print(text, cls){
+    const d = document.createElement('div');
+    if (cls) d.className = cls;
+    d.textContent = text;
+    out.appendChild(d);
+    box.scrollTop = box.scrollHeight;
+  }
+  function esc(){ out.innerHTML = ''; }
+
+  const run = {
+    help(){ return 'Available commands:\n  help            show this list\n  ls              list files\n  cat <file>      read a file\n  whoami, id, pwd, uname, date, echo <text>\n  neofetch        system summary\n  domains         list security domains\n  paths           show learning roadmap\n  tools           list common tools\n  labs            list practice labs\n  rules           code of conduct\n  open <section>  jump to a page section (' + SECTIONS.join(', ') + ')\n  history, clear'; },
+    ls(){ return Object.keys(FILES).join('    '); },
+    cat(a){ if(!a[0]) return 'cat: missing file name'; return FILES[a[0]] || ('cat: ' + a[0] + ': No such file or directory'); },
+    whoami(){ return 'guest'; },
+    id(){ return 'uid=1000(guest) gid=1000(guest) groups=1000(guest),100(learners)'; },
+    pwd(){ return '/home/guest'; },
+    uname(){ return 'LearnWithIss 1.0 x86_64 GNU/Linux'; },
+    date(){ return new Date().toString(); },
+    echo(a){ return a.join(' '); },
+    domains(){ return [...document.querySelectorAll('#domains .dom h3')].map((h,i)=>(i+1)+'. '+h.textContent).join('\n'); },
+    paths(){ return FILES['roadmap.txt']; },
+    tools(){ return FILES['tools.txt']; },
+    labs(){ return FILES['labs.txt']; },
+    rules(){ return FILES['rules.txt']; },
+    history(){ return hist.map((h,i)=>(' '+(i+1)+'  '+h)).join('\n'); },
+    neofetch(){ return 'guest@learnwithiss\n-------------------\nSite:    ' + SITE + '\nCurator: ' + OWNER + '\nTopics:  10 security domains\nShell:   lwi-sh 1.0\nMode:    educational / ethical use only'; },
+    ping(a){ return a[0] ? 'ping: ' + a[0] + ': network access is disabled in this demo shell' : 'ping: usage error: destination required'; },
+    exit(){ return 'logout is disabled. This terminal stays open - keep learning.'; },
+    open(a){
+      const id = a[0];
+      if (!id) return 'usage: open <section>\nsections: ' + SECTIONS.join(', ');
+      if (!SECTIONS.includes(id)) return 'open: unknown section "' + id + '"';
+      document.getElementById(id).scrollIntoView({behavior:'smooth'}); return 'opening #' + id + ' ...';
+    },
+  };
+
+  function exec(line){
+    print(PS1 + line, 'cmd');
+    const parts = line.trim().split(/\s+/).filter(Boolean);
+    if (!parts.length) return;
+    hist.push(line); hi = hist.length;
+    const name = parts[0], args = parts.slice(1);
+    if (name === 'clear') { esc(); return; }
+    if (name === 'sudo') { print('guest is not in the sudoers file. This incident will be reported.', 'err'); return; }
+    if (run[name]) { print(run[name](args)); }
+    else print(name + ': command not found. Type "help" to see available commands.', 'err');
+  }
+
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Enter'){ exec(inp.value); inp.value = ''; }
+    else if (e.key === 'ArrowUp'){ if (hi > 0){ hi--; inp.value = hist[hi]; } e.preventDefault(); }
+    else if (e.key === 'ArrowDown'){ if (hi < hist.length - 1){ hi++; inp.value = hist[hi]; } else { hi = hist.length; inp.value = ''; } e.preventDefault(); }
+    else if (e.key === 'Tab'){
+      e.preventDefault();
+      const v = inp.value, parts = v.split(/\s+/);
+      if (parts.length === 1){ const m = CMDS.filter(c => c.startsWith(parts[0])); if (m.length === 1) inp.value = m[0] + ' '; else if (m.length > 1) print(m.join('  ')); }
+      else if (parts[0] === 'cat'){ const m = Object.keys(FILES).filter(f => f.startsWith(parts[1]||'')); if (m.length === 1) inp.value = 'cat ' + m[0]; }
+      else if (parts[0] === 'open'){ const m = SECTIONS.filter(f => f.startsWith(parts[1]||'')); if (m.length === 1) inp.value = 'open ' + m[0]; }
+    }
+    else if (e.key === 'l' && e.ctrlKey){ e.preventDefault(); esc(); }
+  });
+  box.addEventListener('click', () => { if (!getSelection().toString()) inp.focus(); });
+
+  // boot sequence
+  exec('whoami'); exec('cat about.txt');
+  print('\nType "help" to see what you can do. Try: domains, cat roadmap.txt, open knowledge');
 })();
 </script>
 </body>

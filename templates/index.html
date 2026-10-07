@@ -32,20 +32,20 @@
     <div id="term-out" aria-live="polite"></div>
     <div class="term-line"><span class="p" id="term-ps1"></span><input id="term-in" type="text" spellcheck="false" autocomplete="off" autocapitalize="off" aria-label="Terminal input"></div>
   </div>
-  <h1>Welcome to <em>{{ site_name }}</em></h1>
-  <p><strong>{{ site_name }}</strong> is a learning hub for people who want to understand how systems work and how they fail. Build practical offensive and defensive skills, follow clear study paths, and keep up with trusted security news.</p>
+  <h1>Begin with <em>{{ site_name }}</em></h1>
+  <p><strong>{{ site_name }}</strong> is made for anyone who wants to see how systems operate and where they break. Develop hands-on attack and defense skills, follow organized study plans, and stay informed through reliable security sources.</p>
   <p class="cta"><a class="btn" href="#knowledge">Enter Knowledge Base</a> <a class="btn alt" href="#paths">Start Learning →</a></p>
 
-  <h2 class="sub">// principles — The security mindset</h2>
-  <p>Security is curiosity backed by skill: understanding a system well enough to spot what its designers overlooked, then using that insight to make it stronger.</p>
+  <h2 class="sub">// values — How a security professional thinks</h2>
+  <p>Security work combines curiosity with technical skill. You learn a system so thoroughly that you notice what its creators missed, and then you use that knowledge to strengthen it.</p>
   <div class="grid g4">
     {% for icon, t, d in ethos %}<article class="card"><div class="ico">{{ icon }}</div><h3>{{ t }}</h3><p>{{ d }}</p></article>{% endfor %}
   </div>
 </section>
 
 <section id="knowledge">
-  <h2>// knowledge base — Core security domains</h2>
-  <p>Ten core areas of cybersecurity. Each card summarizes the topic, lists what to study, and links to trusted resources for deeper learning.</p>
+  <h2>// knowledge base — The main areas of security</h2>
+  <p>Ten key fields within cybersecurity. Every card gives a short overview, the subjects to study, and dependable links for further reading.</p>
   <input id="q" class="search" type="search" placeholder="Search domains…" aria-label="Search domains" autocomplete="off">
   <div class="grid g3" id="domains">
     {% for icon, t, d, pts, links in domains %}
@@ -57,8 +57,8 @@
 </section>
 
 <section id="paths">
-  <h2>// roadmap — Learning paths</h2>
-  <p>Anyone can begin today. Work through the stages in order and build your skills step by step.</p>
+  <h2>// roadmap — Your study plan</h2>
+  <p>You can start right now. Go through the stages one after another and let your skills build gradually.</p>
   <div class="grid g3">
     {% for t, d, steps in paths %}
     <article class="card"><div class="num">0{{ loop.index }}</div><h3>{{ t }}</h3><p>{{ d }}</p>
@@ -67,8 +67,8 @@
 </section>
 
 <section id="arsenal">
-  <h2>// toolkit — Essential tools</h2>
-  <p>Commonly used tools grouped by purpose. Most are free or open source. Master a few thoroughly before collecting many.</p>
+  <h2>// toolkit — Tools worth knowing</h2>
+  <p>Popular tools sorted by what they do. Most cost nothing or are open source. Get truly good with a handful before gathering more.</p>
   <div class="grid g4">
     {% for group, items in tools.items() %}
     <article class="card"><h3>{{ group }}</h3><p class="chips">{% for i in items %}<span>{{ i }}</span>{% endfor %}</p></article>{% endfor %}
@@ -76,24 +76,24 @@
 </section>
 
 <section id="practice">
-  <h2>// practice labs — Safe places to train</h2>
-  <p>Real skill comes from practice. These platforms are legal, intentionally vulnerable environments built for hands-on learning.</p>
+  <h2>// practice labs — Where to train safely</h2>
+  <p>Skill is built by doing. These sites are lawful, deliberately vulnerable environments designed for practical learning.</p>
   <div class="grid g3">
     {% for n, d, u in practice %}<a class="card link" href="{{ u }}" target="_blank" rel="noopener"><h3>{{ n }} ↗</h3><p>{{ d }}</p></a>{% endfor %}
   </div>
 </section>
 
 <section id="glossary">
-  <h2>// glossary — Key terms</h2>
-  <p>Common terminology used across the industry. Knowing these terms makes technical discussions easier to follow.</p>
+  <h2>// glossary — Words you should know</h2>
+  <p>Frequently used industry vocabulary. Understanding it helps you follow technical conversations with ease.</p>
   <div class="grid g4">
     {% for t, d in glossary %}<article class="card"><h3>{{ t }}</h3><p>{{ d }}</p></article>{% endfor %}
   </div>
 </section>
 
 <section id="intel">
-  <h2>// news &amp; intelligence — Trusted sources</h2>
-  <p>Stay informed with a curated list of reliable sources covering threat intelligence, advisories, vulnerabilities, cloud security and AI.</p>
+  <h2>// news &amp; intelligence — Reliable sources</h2>
+  <p>Keep up to date using a hand-picked list of sources on threat intelligence, advisories, vulnerabilities, cloud security and AI.</p>
   {% for group, items in feeds.items() %}
   <h3 class="grp">{{ group }}</h3>
   <div class="grid g4">
@@ -102,33 +102,17 @@
 </section>
 
 <section id="rules">
-  <h2>// code of conduct</h2>
+  <h2>// ground rules</h2>
   <ul class="rules">{% for r in rules %}<li>{{ r }}</li>{% endfor %}</ul>
-  <p class="muted">// {{ site_name }} offers educational cybersecurity information and links to public resources. You remain responsible for how you apply it. Practice ethically and lawfully.</p>
+  <p class="muted">// {{ site_name }} shares learning material on cybersecurity and links to public resources. How you use it is your own responsibility, so act ethically and within the law.</p>
 </section>
 
-<section id="legal">
-  <h2>// legal — Copyright &amp; Disclaimer</h2>
-  <div class="legal">
-    <h3>Copyright notice</h3>
-    <p>&copy; {{ year }} {{ owner }} / {{ site_name }}. The original design, layout, source code and written material of this website are the property of {{ owner }}. No part of the original material may be copied, republished or redistributed without prior written permission.</p>
-
-    <h3>Third-party resources</h3>
-    <p>{{ site_name }} is a curated directory. It links to external websites, courses, tools and publications that are owned and operated by third parties. All names, logos, brands and trademarks mentioned (including but not limited to OWASP, PortSwigger, Hack The Box, TryHackMe, MITRE, NIST, CISA, Kali Linux and Burp Suite) belong to their respective owners. We do not host, copy or redistribute their content, and their mention does not imply any affiliation, sponsorship or endorsement.</p>
-
-    <h3>Educational purpose &amp; no warranty</h3>
-    <p>All information is provided for educational, defensive and authorized-testing purposes only, &ldquo;as is&rdquo; and without warranty of any kind. {{ owner }} accepts no liability for any loss, damage or legal consequence arising from the use or misuse of this information. Users are solely responsible for complying with the laws of their jurisdiction.</p>
-
-    <h3>Copyright complaints &amp; takedown</h3>
-    <p>If you are a rights holder and believe that any content on this website infringes your copyright, please email <a href="mailto:{{ contact_email }}">{{ contact_email }}</a> with: (1) a description of the work, (2) the exact URL of the material, (3) your contact details, and (4) a statement that you are authorized to act for the rights holder. We review every valid notice promptly and will remove or correct the material where required.</p>
-  </div>
-</section>
 </main>
 
 <footer>
-  <p>&copy; {{ year }} {{ owner }} · {{ site_name }} · All rights reserved on original content · <a href="#legal">Copyright &amp; Disclaimer</a></p>
-  <p>Built for students, ethical hackers and defenders</p>
-  <p class="p">&gt; {{ site_name|lower }} // stay curious. stay ethical. keep learning. <span class="cur">_</span></p>
+  <p>{{ site_name }} · {{ owner }}</p>
+  <p>Made for students, ethical hackers and defenders</p>
+  <p class="p">&gt; {{ site_name|lower }} // stay curious. act ethically. keep learning. <span class="cur">_</span></p>
 </footer>
 
 <script>
@@ -175,13 +159,13 @@ q.addEventListener('input', () => {
   document.getElementById('term-ps1').textContent = PS1;
 
   const FILES = {
-    'about.txt': SITE + ' - a cybersecurity learning hub by ' + OWNER + '.\nStudy core domains, follow roadmaps, practice in legal labs.',
-    'roadmap.txt': '1. Foundations  - Linux, networking, Python, home lab\n2. Core Offense - web security, recon, boxes, write-ups\n3. Specialize   - web | binary | cloud | AI | AD, CTFs, bug bounty',
+    'about.txt': SITE + ' - a cybersecurity study hub curated by ' + OWNER + '.\nExplore key domains, follow the roadmaps and train in legal labs.',
+    'roadmap.txt': '1. Foundations  - Linux, networks, Python, a home lab\n2. Core Offense - web security, recon, practice boxes, write-ups\n3. Specialize   - web | binary | cloud | AI | AD, CTFs, bug bounty',
     'tools.txt': 'recon: nmap, masscan, amass, subfinder\nweb: Burp Suite, OWASP ZAP, ffuf, sqlmap\nre: Ghidra, radare2, x64dbg, gdb\nnetwork: Wireshark, tcpdump, mitmproxy\nforensics: Volatility, Autopsy, binwalk, CyberChef',
     'labs.txt': 'PortSwigger Academy, Hack The Box, TryHackMe, picoCTF,\nOverTheWire, VulnHub, pwn.college, Cryptopals, Root-Me, CTFtime',
-    'rules.txt': '1. Test only what you own or are authorized to test.\n2. Know your local computer-crime laws.\n3. Report vulnerabilities responsibly.\n4. Use knowledge to protect, never to harm.',
+    'rules.txt': '1. Assess only what you own or have permission to test.\n2. Learn the cybercrime laws where you live.\n3. Disclose vulnerabilities responsibly.\n4. Use what you learn to protect, never to harm.',
   };
-  const SECTIONS = ['welcome','knowledge','paths','arsenal','practice','glossary','intel','rules','legal'];
+  const SECTIONS = ['welcome','knowledge','paths','arsenal','practice','glossary','intel','rules'];
   const CMDS = ['help','ls','cat','whoami','pwd','date','echo','clear','history','neofetch','open','domains','paths','tools','labs','rules','uname','id','ping','exit'];
   let hist = [], hi = 0;
 

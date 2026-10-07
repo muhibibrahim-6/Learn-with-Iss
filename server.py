@@ -1,9 +1,11 @@
 import os
+from datetime import datetime
 from flask import Flask, render_template, jsonify, Response
 
 app = Flask(__name__)
 
 SITE_NAME = "Learn With Iss"
+CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", "contact@example.com")  # Render > Environment এ নিজের ইমেইল দিন
 OWNER = "Muhib Ibrahim"
 TAGLINE = f"The Hacker Knowledge Hub By {OWNER}"
 DESCRIPTION = (
@@ -14,7 +16,7 @@ DESCRIPTION = (
 NAV = [
     ("welcome", "Welcome"), ("knowledge", "Knowledge"), ("paths", "Roadmaps"),
     ("arsenal", "Tools"), ("practice", "Labs"), ("glossary", "Terms"),
-    ("intel", "News Feeds"), ("rules", "Rules"),
+    ("intel", "News Feeds"), ("rules", "Rules"), ("legal", "Legal"),
 ]
 
 ETHOS = [
@@ -176,7 +178,7 @@ RULES = [
 
 @app.context_processor
 def inject_globals():
-    return dict(site_name=SITE_NAME, owner=OWNER, tagline=TAGLINE, description=DESCRIPTION, nav=NAV)
+    return dict(contact_email=CONTACT_EMAIL, year=datetime.now().year, site_name=SITE_NAME, owner=OWNER, tagline=TAGLINE, description=DESCRIPTION, nav=NAV)
 
 
 @app.route("/")
